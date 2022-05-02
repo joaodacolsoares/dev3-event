@@ -8,7 +8,7 @@ function Form({ children, onSubmit }) {
 
   return (
     <FormProvider {...methods}>
-      <form className="flex flex-col p-5 space-y-3" onSubmit={methods.handleSubmit(onSubmit)}>
+      <form className="flex flex-col space-y-3" onSubmit={methods.handleSubmit(onSubmit)}>
         {children}
       </form>
     </FormProvider>
