@@ -20,7 +20,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <Template>
+      <Template title="Minha página">
         <Template.Sidebar>
           <Card title="Meu card" padding={false}>
             <div className="bg-gray-100 w-full h-44" />

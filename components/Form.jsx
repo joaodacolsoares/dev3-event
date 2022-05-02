@@ -50,7 +50,7 @@ function FormInput({ name, label, defaultValue, rules }) {
 
   return (
     <FormBase label={label} name={name}>
-      <input {...field} className="w-full outline-none" />
+      <input {...field} className="w-full outline-none bg-clip-text" />
     </FormBase>
   );
 }

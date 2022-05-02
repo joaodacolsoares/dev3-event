@@ -3,6 +3,7 @@ import Head from 'next/head';
 import Image from 'next/image';
 import Form from '../components/Form';
 import Template from '../components/Template';
+import Link from 'next/link';
 
 function Card({ children, title, padding = true }) {
   return (
@@ -27,6 +28,9 @@ export default function SignUp() {
                 <Form.Input name="password" label="Senha" />
                 <Form.Input name="confirmPassword" label="Confirmar senha" />
                 <Form.Submit />
+                <Link href="/login">
+                  <a className="text-sm text-pink-500 font-semibold text-center !mt-2">Já tenho conta</a>
+                </Link>
               </Form>
             </div>
             <div className="flex relative bg-gray-200 w-full flex-grow object-fill h-full md:h-[450px]">

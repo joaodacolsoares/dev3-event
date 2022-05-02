@@ -1,6 +1,7 @@
 import clsx from 'clsx';
 import Head from 'next/head';
 import Image from 'next/image';
+import Link from 'next/link';
 import Form from '../components/Form';
 import Template from '../components/Template';
 
@@ -25,6 +26,9 @@ export default function Login() {
                 <Form.Input name="email" label="Email" />
                 <Form.Input name="password" label="Senha" />
                 <Form.Submit />
+                <Link href="/signup">
+                  <a className="text-sm text-pink-500 font-semibold text-center !mt-2">Criar conta</a>
+                </Link>
               </Form>
             </div>
             <div className="flex relative bg-gray-200 w-full flex-grow object-fill h-full md:h-[450px]">
