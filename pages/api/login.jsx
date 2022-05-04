@@ -23,7 +23,7 @@ const handler = async (request, response) => {
 
   if (newToken) {
     setCookie(response, 'jwt', newToken);
-    return response.status(200).end();
+    return response.redirect('/app');
   }
 
   const { statusCode, message } = errorResponse[INVALID_CREDENTIALS];
