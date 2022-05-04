@@ -55,7 +55,7 @@ const register = async (name, email, password) => {
     },
   });
 
-  return jwt.sign({ name: name, email: email }, process.env.SECRET_KEY, { expiresIn: 300 });
+  return jwt.sign({ name: user.name, email: user.email }, process.env.SECRET_KEY, { expiresIn: 300 });
 };
 
 export default handler;
