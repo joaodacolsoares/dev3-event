@@ -30,7 +30,7 @@ const handler = async (request, response) => {
 
 const session = async token => {
   try {
-    jwt.verify(token, process.env.SECRET_KEY);
+    jwt.verify(token, process.env.SECRET_KEY, { maxAge: 300 });
   } catch {
     return null;
   }
