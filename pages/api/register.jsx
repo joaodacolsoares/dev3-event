@@ -1,14 +1,15 @@
 import { PrismaClient } from '@prisma/client';
 import jwt from 'jsonwebtoken';
 import crypto from 'crypto';
+import { setCookie } from '../../helpers/SetCookie';
 
 const prisma = new PrismaClient();
 
+const METHOD_NOT_ALLOWED = 405;
 const DUPLICATED_USER = 'duplicated';
 
-const handleError = {
-  duplicated: { statusCode: 409, message: 'User already exists' },
-};
+const handleError = {};
+handleError[DUPLICATED_USER] = { statusCode: 409, message: 'User already exists' };
 
 const handler = async (request, response) => {
   if (request.method !== 'POST') {
@@ -16,13 +17,15 @@ const handler = async (request, response) => {
   }
 
   const { name, email, password } = request.body;
+
   if (!(email && password)) {
     return response.status(400).json({ error: 'Invalid request parameters.' });
   }
 
   try {
-    const user = await register(name, email, password);
-    return response.status(201).json(user);
+    const token = await register(name, email, password);
+    setCookie(response, 'jwt', token);
+    return response.status(201).end();
   } catch (err) {
     const { statusCode, message } = handleError[err.name];
     return response.status(statusCode).json(message);
@@ -52,9 +55,7 @@ const register = async (name, email, password) => {
     },
   });
 
-  const token = jwt.sign({ email: email, name: name }, process.env.SECRET_KEY, { expiresIn: 300 });
-
-  return { name: user.name, email: user.email, token: token };
+  return jwt.sign({ name: name, email: email }, process.env.SECRET_KEY, { expiresIn: 300 });
 };
 
 export default handler;
