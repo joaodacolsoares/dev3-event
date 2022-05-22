@@ -1,7 +1,7 @@
 import clsx from 'clsx';
 import Head from 'next/head';
-import Form from '../components/Form';
-import Template from '../components/Template';
+import Form from '../../components/Form';
+import Template from '../../components/Template';
 
 function Card({ children, title, padding = true }) {
   return (
@@ -58,8 +58,8 @@ export default function Home() {
           </Card>
           <Card title="Meu card">
             <Form onSubmit={data => alert(data)}>
-              <Form.Input name="teste" label="Minha label" />
-              <Form.Input name="teste2" label="Minha label2" />
+              <Form.Text name="teste" label="Minha label" />
+              <Form.Text name="teste2" label="Minha label2" />
               <Form.Submit />
             </Form>
           </Card>
