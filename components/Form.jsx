@@ -36,7 +36,7 @@ function FormSubmit({ className }) {
   return <input className={clsx(className, 'bg-pink-400 p-3 rounded-lg font-semibold text-white')} type="submit" />;
 }
 
-function FormInput({ name, label, defaultValue, rules }) {
+function FormText({ name, label, defaultValue }) {
   const { control } = useFormContext();
 
   const { field } = useController({
@@ -55,6 +55,54 @@ function FormInput({ name, label, defaultValue, rules }) {
   );
 }
 
-Form.Input = FormInput;
+function FormEmail({ name, label, defaultValue }) {
+  const { control } = useFormContext();
+
+  const { field } = useController({
+    name,
+    control,
+    defaultValue,
+    rules: {
+      required: REQUIRED_FIELD,
+      validate: value => {
+        if (!value) return true;
+
+        if (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
+          return true;
+        }
+        return 'Digite um email válido';
+      },
+    },
+  });
+
+  return (
+    <FormBase label={label} name={name}>
+      <input {...field} className="w-full outline-none bg-clip-text" />
+    </FormBase>
+  );
+}
+
+function FormPassword({ name, label, defaultValue }) {
+  const { control } = useFormContext();
+
+  const { field } = useController({
+    name,
+    control,
+    defaultValue,
+    rules: {
+      required: REQUIRED_FIELD,
+    },
+  });
+
+  return (
+    <FormBase label={label} name={name}>
+      <input {...field} type="password" className="w-full outline-none bg-clip-text" />
+    </FormBase>
+  );
+}
+
+Form.Email = FormEmail;
+Form.Password = FormPassword;
+Form.Text = FormText;
 Form.Submit = FormSubmit;
 export default Form;
