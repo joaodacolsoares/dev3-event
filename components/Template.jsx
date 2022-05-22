@@ -8,7 +8,7 @@ function Section({ children }) {
 
 function Template({ children, title }) {
   return (
-    <div className="w-full flex justify-center mb-4">
+    <div className="w-full flex justify-center mb-4 md:px-5">
       <div className="flex flex-col max-w-5xl w-full">
         <div className="font-semibold shadow-sm mb-2 bg-white md:my-6 md:bg-transparent md:text-2xl md:shadow-none p-5 md:p-0">
           {title}
