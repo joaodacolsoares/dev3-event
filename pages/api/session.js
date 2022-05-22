@@ -1,4 +1,5 @@
 import { PrismaClient } from '@prisma/client';
+import Cookies from 'cookies';
 import jwt from 'jsonwebtoken';
 
 const prisma = new PrismaClient();
@@ -15,7 +16,8 @@ const handler = async (request, response) => {
     return response.status(METHOD_NOT_ALLOWED).json({ error: 'Only GET requests are allowed' });
   }
 
-  const token = request.cookies.jwt;
+  const cookies = new Cookies(request, response);
+  const token = cookies.get('jwt');
 
   if (token) {
     const user = await session(token);

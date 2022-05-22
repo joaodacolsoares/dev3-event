@@ -1,7 +1,7 @@
 import { PrismaClient } from '@prisma/client';
 import jwt from 'jsonwebtoken';
 import crypto from 'crypto';
-import { setCookie } from '../../helpers/SetCookie';
+import Cookies from 'cookies';
 
 const prisma = new PrismaClient();
 
@@ -16,7 +16,7 @@ const handler = async (request, response) => {
     return response.status(METHOD_NOT_ALLOWED).json({ error: 'Only POST requests are allowed' });
   }
 
-  const { name, email, password } = request.body;
+  const { name, email, password } = JSON.parse(request.body);
 
   if (!(email && password)) {
     return response.status(400).json({ error: 'Invalid request parameters.' });
@@ -24,11 +24,13 @@ const handler = async (request, response) => {
 
   try {
     const token = await register(name, email, password);
-    setCookie(response, 'jwt', token);
-    return response.status(201).end();
+    const cookies = new Cookies(request, response);
+    cookies.set('jwt', token);
+    return response.status(201).json({ success: true });
   } catch (err) {
+    console.error(err);
     const { statusCode, message } = handleError[err.name];
-    return response.status(statusCode).json(message);
+    return response.status(statusCode).json({ error: message });
   }
 };
 

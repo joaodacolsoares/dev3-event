@@ -1,7 +1,7 @@
 import { PrismaClient } from '@prisma/client';
 import crypto from 'crypto';
 import jwt from 'jsonwebtoken';
-import { setCookie } from '../../helpers/SetCookie';
+import Cookies from 'cookies';
 
 const prisma = new PrismaClient();
 
@@ -17,13 +17,14 @@ const handler = async (request, response) => {
     return response.status(METHOD_NOT_ALLOWED).send('Only POST requests are allowed');
   }
 
-  const { email, password } = request.body;
+  const { email, password } = JSON.parse(request.body);
 
-  const newToken = await login(email, password);
+  const token = await login(email, password);
 
-  if (newToken) {
-    setCookie(response, 'jwt', newToken);
-    return response.redirect('/app');
+  if (token) {
+    const cookies = new Cookies(request, response);
+    cookies.set('jwt', token);
+    return response.status(200).json({ success: true });
   }
 
   const { statusCode, message } = errorResponse[INVALID_CREDENTIALS];
