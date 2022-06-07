@@ -32,8 +32,14 @@ function FormBase({ name, label, children }) {
   );
 }
 
-function FormSubmit({ className }) {
-  return <input className={clsx(className, 'bg-pink-400 p-3 rounded-lg font-semibold text-white')} type="submit" />;
+function FormSubmit({ className, label }) {
+  return (
+    <input
+      className={clsx(className, 'bg-pink-400 p-3 rounded-lg font-semibold text-white cursor-pointer')}
+      type="submit"
+      value={label}
+    />
+  );
 }
 
 function FormText({ name, label, defaultValue }) {

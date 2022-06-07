@@ -1,8 +1,6 @@
 import clsx from 'clsx';
-import Head from 'next/head';
 import Image from 'next/image';
 import Form from '../components/Form';
-import Template from '../components/Template';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import useUser from '../hooks/useUser';
@@ -56,7 +54,7 @@ export default function SignUp() {
                 <Form.Text name="name" label="Name" />
                 <Form.Email name="email" label="Email" />
                 <Form.Password name="password" label="Senha" />
-                <Form.Submit />
+                <Form.Submit label="Enviar" />
                 <Link href="/login">
                   <a className="text-sm text-pink-500 font-semibold text-center !mt-2">Já tenho conta</a>
                 </Link>

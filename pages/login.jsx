@@ -1,11 +1,9 @@
 import clsx from 'clsx';
-import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import Form from '../components/Form';
-import Template from '../components/Template';
 import useUser from '../hooks/useUser';
 
 function Card({ children, title, padding = true }) {
