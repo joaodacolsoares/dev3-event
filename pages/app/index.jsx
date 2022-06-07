@@ -2,6 +2,7 @@ import clsx from 'clsx';
 import Head from 'next/head';
 import Form from '../../components/Form';
 import Template from '../../components/Template';
+import LogoutIcon from '@heroicons/react/solid/LogoutIcon';
 
 function Card({ children, title, padding = true }) {
   return (
@@ -9,6 +10,29 @@ function Card({ children, title, padding = true }) {
       {title && <div className={clsx(!padding && 'p-5', 'font-semibold mb-3')}>{title}</div>}
       <div>{children}</div>
     </div>
+  );
+}
+
+const onLogoutClick = async () => {
+  await fetch('/api/logout', {
+    method: 'POST',
+  });
+  document.location.reload();
+};
+
+function Header() {
+  return (
+    <>
+      <Template.Header>
+        <h1>Bem vindo</h1>
+        <button>
+          <div className="space-x-1 flex items-center">
+            <span>Sair</span>
+            <LogoutIcon className="h-4 w-4 mt-2" onClick={onLogoutClick} />
+          </div>
+        </button>
+      </Template.Header>
+    </>
   );
 }
 
@@ -20,7 +44,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <Template title="Minha página">
+      <Template header={<Header />}>
         <Template.Sidebar>
           <Card title="Meu card" padding={false}>
             <div className="bg-gray-100 w-full h-44" />
