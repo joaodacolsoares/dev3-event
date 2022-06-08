@@ -16,16 +16,19 @@ const validateRoute = data => {
 
 function Edit(page) {
   const [baseUrl, setBaseUrl] = useState('');
+  const [loading, setLoading] = useState(false);
   const router = useRouter();
   console.log(page);
   return (
     <Form
       defaultValues={page}
       onSubmit={async data => {
+        setLoading(true);
         await fetch('/api/page', {
           method: 'POST',
           body: JSON.stringify(data),
         }).then(res => res.json());
+        setLoading(false);
         router.push(`/${data.route}`);
       }}
     >
@@ -35,7 +38,11 @@ function Edit(page) {
             <div className="flex items-center justify-between w-full">
               <h1>Edição do Site</h1>
               <div className="!text-base">
-                <Form.Submit label="Salvar" className="font-normal !text-md" />
+                <Form.Submit
+                  disabled={loading}
+                  label={loading ? 'Carregando' : 'Salvar'}
+                  className="font-normal !text-md"
+                />
               </div>
             </div>
           </Template.Header>
