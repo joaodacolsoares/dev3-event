@@ -62,6 +62,7 @@ export async function getStaticProps({ params }) {
       email: true,
       id: false,
       userId: false,
+      user: true,
     },
   });
   return {
