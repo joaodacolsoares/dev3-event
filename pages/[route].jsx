@@ -5,7 +5,7 @@ import Template from '../components/Template';
 
 const prisma = new PrismaClient();
 
-const Page = ({ user, title, subtitle, description, email, phone }) => {
+const Page = ({ title, subtitle, description, email, phone }) => {
   return (
     <>
       <Head>
@@ -14,7 +14,7 @@ const Page = ({ user, title, subtitle, description, email, phone }) => {
       <div className="flex justify-center">
         <div className="py-5 flex flex-col max-w-5xl w-full relative min-h-screen">
           <header className="flex items-center justify-between px-5 w-[1024]">
-            <div className="font-bold text-2xl font-lusitana text-pink-400">{user?.name[0]?.toUpperCase() || 'E'}</div>
+            <div className="font-bold text-2xl font-lusitana text-pink-400">{title[0]?.toUpperCase() || 'E'}</div>
             <a href={`mailto:${email}`} className="p-3 bg-pink-400 text-white rounded-lg">
               Entrar em contato
             </a>
@@ -62,7 +62,6 @@ export async function getStaticProps({ params }) {
       email: true,
       id: false,
       userId: false,
-      user: true,
     },
   });
   return {
