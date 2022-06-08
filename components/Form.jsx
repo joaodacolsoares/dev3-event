@@ -60,7 +60,7 @@ function FormText({ name, label, defaultValue, validate, fixedText }) {
     <FormBase label={label} name={name}>
       <div className="w-full flex items-center">
         <div className="text-sm text-gray-400">{fixedText}</div>
-        <input {...field} className="outline-none bg-clip-text w-2/5" />
+        <input {...field} className="w-full outline-none bg-clip-text" />
       </div>
     </FormBase>
   );
