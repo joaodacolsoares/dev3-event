@@ -87,7 +87,7 @@ export default function Home({ route }) {
   );
 }
 
-export async function asyncgetServerSideProps({ req }) {
+export async function getServerSideProps({ req }) {
   const prisma = new PrismaClient();
 
   const cookies = new Cookies(req);
