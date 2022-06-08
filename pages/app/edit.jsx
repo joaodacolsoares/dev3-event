@@ -20,26 +20,37 @@ function Edit() {
   }, []);
 
   return (
-    <Template
-      header={
-        <Template.Header>
-          <h1>Edição do Site</h1>
-        </Template.Header>
-      }
+    <Form
+      onSubmit={async data => {
+        await fetch('/api/page', {
+          method: 'POST',
+          body: JSON.stringify(data),
+        }).then(res => res.json());
+        router.push(`/${data.route}`);
+      }}
     >
-      <Template.Section>
-        <Form
-          onSubmit={async data => {
-            await fetch('/api/page', {
-              method: 'POST',
-              body: JSON.stringify(data),
-            }).then(res => res.json());
-            router.push(`/${data.route}`);
-          }}
-        >
+      <Template
+        header={
+          <Template.Header>
+            <div className="flex items-center justify-between w-full">
+              <h1>Edição do Site</h1>
+              <div className="!text-base">
+                <Form.Submit label="Salvar" className="font-normal !text-md" />
+              </div>
+            </div>
+          </Template.Header>
+        }
+      >
+        <Template.Sidebar>
           <Card title="Rota">
             <Form.Text name="route" label="Rota da sua página" fixedText={`${baseUrl}/`} validate={validateRoute} />
           </Card>
+          <Card title="Informações de contato">
+            <Form.Text name="email" label="E-mail" />
+            <Form.Phone name="phone" label="Telefone" />
+          </Card>
+        </Template.Sidebar>
+        <Template.Section>
           <Card title="Cabeçalho">
             <Form.Text name="title" label="Titulo" />
             <Form.Text name="subtitle" label="Subtitulo" />
@@ -47,15 +58,11 @@ function Edit() {
           <Card title="Corpo">
             <Form.TextArea name="description" label="Descrição" />
           </Card>
-          <Card title="Contato">
-            <Form.Text name="email" label="E-mail" />
-            <Form.Phone name="phone" label="Telefone" />
-          </Card>
-          <Form.Submit />
-        </Form>
-      </Template.Section>
-    </Template>
+        </Template.Section>
+      </Template>
+    </Form>
   );
 }
 
+Edit.navbar = true;
 export default Edit;
