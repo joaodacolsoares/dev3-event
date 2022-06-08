@@ -21,17 +21,17 @@ function MyApp({ Component, pageProps }) {
   console.log(navbar);
   return (
     <div className="flex w-full bg-gray-50 min-h-screen flex-col md:flex-row-reverse">
-      <div className="min-h-screen w-full">
+      <div className="min-h-screen w-full mb-20 md:mb-0">
         <Component {...pageProps} />
       </div>
       {navbar && (
-        <nav className="w-24 h-screen shadow-lg bg-white flex flex-col items-center justify-center font-semibold">
+        <nav className="md:static border md:border-0 border-gray-200 fixed bottom-0 md:w-24 md:h-screen h-20 w-full shadow-lg bg-white flex md:flex-col items-center justify-center font-semibold">
           {NAV_ITEMS.map(item => (
             <Link key={item.path} href={item.path}>
               <div
                 className={clsx(
-                  'hover:text-pink-300 transition-colors flex items-center py-3 flex-col text-gray-400 cursor-pointer space-y-1',
-                  location.pathname === item.path && '!text-pink-500'
+                  'hover:text-pink-300 transition-colors flex items-center p-3 flex-col text-gray-400 cursor-pointer space-y-1',
+                  typeof window !== 'undefined' && window?.location?.pathname === item.path && '!text-pink-500'
                 )}
               >
                 <item.icon className="w-5 h-5" />
