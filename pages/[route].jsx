@@ -9,7 +9,7 @@ const Page = ({ user, title, subtitle, description, email, phone }) => {
     <Template
       header={
         <Template.Header>
-          <h1>Bem vindo ao site de {user.name}</h1>
+          <h1>Bem vindo ao site de {user?.name}</h1>
         </Template.Header>
       }
     >
@@ -33,11 +33,8 @@ const Page = ({ user, title, subtitle, description, email, phone }) => {
 };
 
 export async function getStaticPaths() {
-  const pages = await prisma.customPage.findMany();
   return {
-    paths: pages.map(page => {
-      return { params: { route: page.route } };
-    }),
+    paths: [],
     fallback: true,
   };
 }
