@@ -1,17 +1,8 @@
-import clsx from 'clsx';
 import Template from '../../components/Template';
 import Form from '../../components/Form';
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
-
-function Card({ children, title, padding = true }) {
-  return (
-    <div className={clsx(padding && 'p-5', 'border-x-gray-100 md:rounded-lg border bg-white')}>
-      {title && <div className={clsx(!padding && 'p-5', 'font-semibold mb-3')}>{title}</div>}
-      <div>{children}</div>
-    </div>
-  );
-}
+import Card from '../../components/Card';
 
 const validateRoute = data => {
   if (/[^a-z\d\-\_]/gi.test(data)) {

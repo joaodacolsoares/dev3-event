@@ -24,7 +24,7 @@ model User {
 model CustomPage {
   id         Int     @id @default(autoincrement())
   user        User   @relation(fields: [userId], references: [id])
-  route       String
+  route       String @unique
   userId      Int    @unique
   title       String
   subtitle    String

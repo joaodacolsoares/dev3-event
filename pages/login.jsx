@@ -1,19 +1,10 @@
-import clsx from 'clsx';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
+import Card from '../components/Card';
 import Form from '../components/Form';
 import useUser from '../hooks/useUser';
-
-function Card({ children, title, padding = true }) {
-  return (
-    <div className={clsx(padding && 'p-5', 'border-x-gray-100 md:rounded-lg border bg-white')}>
-      {title && <div className={clsx(!padding && 'p-5', 'font-semibold mb-3')}>{title}</div>}
-      <div>{children}</div>
-    </div>
-  );
-}
 
 export default function Login() {
   const router = useRouter();
