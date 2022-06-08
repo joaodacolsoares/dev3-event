@@ -30,8 +30,7 @@ function Header() {
         <h1>Bem vindo</h1>
         <button>
           <div className="space-x-1 flex items-center">
-            <span>Sair</span>
-            <LogoutIcon className="h-4 w-4 mt-2" onClick={onLogoutClick} />
+            <LogoutIcon className="h-5 w-5 " onClick={onLogoutClick} />
           </div>
         </button>
       </Template.Header>
@@ -39,7 +38,7 @@ function Header() {
   );
 }
 
-export default function Home({ route }) {
+function Home({ route }) {
   return (
     <div>
       <Head>
@@ -49,19 +48,17 @@ export default function Home({ route }) {
 
       <Template header={<Header />}>
         <Template.Sidebar>
-          <Card title="Edite o seu site" padding={false}>
-            <div className="w-full flex px-2 pb-2 justify-between items-center">
-              <span>Aqui você pode customizar o seu site</span>
-              <Link href="/app/edit">
-                <button className="bg-pink-400 p-3 rounded-lg font-semibold text-white cursor-pointer">Editar</button>
-              </Link>
-            </div>
+          <Card title="Edite o seu site" className="space-y-5">
+            <span>Aqui você pode customizar o seu site</span>
+            <Link href="/app/edit">
+              <button className="bg-pink-400 p-3 rounded-lg font-semibold text-white cursor-pointer">Editar</button>
+            </Link>
           </Card>
         </Template.Sidebar>
 
         <Template.Section>
-          <Card title="Vistiar o seu site" padding={false}>
-            <div className="w-full flex px-2 pb-2 justify-between items-center">
+          <Card title="Visitar o seu site">
+            <div className="w-full flex justify-between items-center">
               {route ? (
                 <>
                   <span>Aqui você pode visitar o seu site e ver como ele fica para as outras pessoas</span>
@@ -103,3 +100,6 @@ export async function getServerSideProps({ req }) {
     props: { route: user.route },
   };
 }
+
+Home.navbar = true;
+export default Home;
