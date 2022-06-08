@@ -48,17 +48,19 @@ function Home({ route }) {
 
       <Template header={<Header />}>
         <Template.Sidebar>
-          <Card title="Edite o seu site" className="space-y-5">
-            <span>Aqui você pode customizar o seu site</span>
-            <Link href="/app/edit">
-              <button className="bg-pink-400 p-3 rounded-lg font-semibold text-white cursor-pointer">Editar</button>
-            </Link>
+          <Card title="Edite o seu site">
+            <div className="w-full flex flex-col justify-between space-y-3">
+              <span>Aqui você pode customizar o seu site</span>
+              <Link href="/app/edit">
+                <button className="bg-pink-400 p-3 rounded-lg font-semibold text-white cursor-pointer">Editar</button>
+              </Link>
+            </div>
           </Card>
         </Template.Sidebar>
 
         <Template.Section>
           <Card title="Visitar o seu site">
-            <div className="w-full flex justify-between items-center">
+            <div className="w-full flex flex-col justify-between space-y-3">
               {route ? (
                 <>
                   <span>Aqui você pode visitar o seu site e ver como ele fica para as outras pessoas</span>
