@@ -39,7 +39,11 @@ function FormSubmit({ className, label, disabled = false }) {
   return (
     <input
       disabled={disabled}
-      className={clsx(className, 'bg-pink-400 p-3 rounded-lg font-semibold text-white cursor-pointer')}
+      className={clsx(
+        className,
+        disabled && '!bg-gray-400 ',
+        'bg-pink-400 p-3 rounded-lg font-semibold text-white cursor-pointer'
+      )}
       type="submit"
       value={label}
     />
