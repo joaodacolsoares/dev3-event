@@ -3,6 +3,9 @@ import Form from '../../components/Form';
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import Card from '../../components/Card';
+import { PrismaClient } from '@prisma/client';
+import Cookies from 'cookies';
+import jwt from 'jsonwebtoken';
 
 const validateRoute = data => {
   if (/[^a-z\d\-\_]/gi.test(data)) {
@@ -11,16 +14,13 @@ const validateRoute = data => {
   return true;
 };
 
-function Edit() {
+function Edit(page) {
   const [baseUrl, setBaseUrl] = useState('');
   const router = useRouter();
-
-  useEffect(() => {
-    setBaseUrl(window.location.origin);
-  }, []);
-
+  console.log(page);
   return (
     <Form
+      defaultValues={page}
       onSubmit={async data => {
         await fetch('/api/page', {
           method: 'POST',
@@ -43,7 +43,7 @@ function Edit() {
       >
         <Template.Sidebar>
           <Card title="Rota">
-            <Form.Text name="route" label="Rota da sua página" fixedText={`${baseUrl}/`} validate={validateRoute} />
+            <Form.Text name="route" label="Rota da sua página" fixedText="/" validate={validateRoute} />
           </Card>
           <Card title="Informações de contato">
             <Form.Text name="email" label="E-mail" />
@@ -62,6 +62,37 @@ function Edit() {
       </Template>
     </Form>
   );
+}
+
+export async function getServerSideProps({ req }) {
+  const prisma = new PrismaClient();
+
+  const cookies = new Cookies(req);
+
+  const { email } = jwt.decode(cookies.get('jwt'));
+
+  const user = await prisma.user.findUnique({
+    where: { email },
+  });
+  const page = await prisma.customPage.findUnique({
+    where: {
+      userId: user.id,
+    },
+    select: {
+      title: true,
+      subtitle: true,
+      route: true,
+      description: true,
+      phone: true,
+      email: true,
+      id: false,
+      userId: false,
+    },
+  });
+
+  return {
+    props: { ...page },
+  };
 }
 
 Edit.navbar = true;

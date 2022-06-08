@@ -4,8 +4,10 @@ import PhoneInput from 'react-phone-number-input/input';
 
 const REQUIRED_FIELD = 'Esse campo é obrigatório';
 
-function Form({ children, onSubmit }) {
-  const methods = useForm();
+function Form({ children, onSubmit, defaultValues = {} }) {
+  const methods = useForm({
+    defaultValues,
+  });
 
   return (
     <FormProvider {...methods}>

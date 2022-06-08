@@ -22,8 +22,6 @@ function MyApp({ Component, pageProps }) {
   const { navbar } = Component;
   const router = useRouter();
 
-  if (typeof window !== 'undefined') console.log(window?.location?.pathname === '/app');
-
   return (
     <>
       <Head>
