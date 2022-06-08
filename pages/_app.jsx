@@ -3,6 +3,7 @@ import { HomeIcon, PencilIcon } from '@heroicons/react/solid';
 import Link from 'next/link';
 import clsx from 'clsx';
 import Head from 'next/head';
+import { useRouter } from 'next/router';
 
 const NAV_ITEMS = [
   {
@@ -19,6 +20,9 @@ const NAV_ITEMS = [
 
 function MyApp({ Component, pageProps }) {
   const { navbar } = Component;
+  const router = useRouter();
+
+  if (typeof window !== 'undefined') console.log(window?.location?.pathname === '/app');
 
   return (
     <>
@@ -41,8 +45,8 @@ function MyApp({ Component, pageProps }) {
               <Link key={item.path} href={item.path}>
                 <div
                   className={clsx(
-                    'hover:text-pink-300 transition-colors flex items-center p-3 flex-col text-gray-400 cursor-pointer space-y-1',
-                    typeof window !== 'undefined' && window?.location?.pathname === item.path && '!text-pink-500'
+                    router.pathname === item.path && '!text-pink-500',
+                    'hover:text-pink-300 transition-colors flex items-center p-3 flex-col text-gray-400 cursor-pointer space-y-1'
                   )}
                 >
                   <item.icon className="w-5 h-5" />
