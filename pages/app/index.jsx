@@ -1,8 +1,11 @@
 import clsx from 'clsx';
 import Head from 'next/head';
-import Form from '../../components/Form';
+import Link from 'next/link';
 import Template from '../../components/Template';
 import LogoutIcon from '@heroicons/react/solid/LogoutIcon';
+import { PrismaClient } from '@prisma/client';
+import Cookies from 'cookies';
+import jwt from 'jsonwebtoken';
 
 function Card({ children, title, padding = true }) {
   return (
@@ -36,7 +39,7 @@ function Header() {
   );
 }
 
-export default function Home() {
+export default function Home({ route }) {
   return (
     <div>
       <Head>
@@ -46,57 +49,57 @@ export default function Home() {
 
       <Template header={<Header />}>
         <Template.Sidebar>
-          <Card title="Meu card" padding={false}>
-            <div className="bg-gray-100 w-full h-44" />
-            <div className="space-y-3 p-5">
-              <div className="bg-gray-100 w-full h-8 rounded" />
-              <div className="bg-gray-100 w-full h-8 rounded" />
-              <div className="bg-gray-100 w-full h-8 rounded" />
-            </div>
-          </Card>
-          <Card padding={false}>
-            <div className="space-y-3 p-5">
-              <div className="bg-gray-100 w-full h-8 rounded" />
-              <div className="bg-gray-100 w-full h-8 rounded" />
-              <div className="bg-gray-100 w-full h-8 rounded" />
-            </div>
-          </Card>
-          <Card title="Teste 2" padding={false}>
-            <div className="bg-gray-100 w-full h-44" />
-            <div className="space-y-3 p-5">
-              <div className="bg-gray-100 w-full h-8 rounded" />
-              <div className="bg-gray-100 w-full h-8 rounded" />
-              <div className="bg-gray-100 w-full h-8 rounded" />
+          <Card title="Edite o seu site" padding={false}>
+            <div className="w-full flex px-2 pb-2 justify-between items-center">
+              <span>Aqui você pode customizar o seu site</span>
+              <Link href="/app/edit">
+                <button className="bg-pink-400 p-3 rounded-lg font-semibold text-white cursor-pointer">Editar</button>
+              </Link>
             </div>
           </Card>
         </Template.Sidebar>
 
         <Template.Section>
-          <Card title="Teste 2" padding={false}>
-            <div className="bg-gray-100 w-full h-44" />
-            <div className="space-y-3 p-5">
-              <div className="bg-gray-100 w-full h-8 rounded" />
-              <div className="bg-gray-100 w-full h-8 rounded" />
-              <div className="bg-gray-100 w-full h-8 rounded" />
-            </div>
-          </Card>
-          <Card title="Meu card">
-            <Form onSubmit={data => alert(data)}>
-              <Form.Text name="teste" label="Minha label" />
-              <Form.Text name="teste2" label="Minha label2" />
-              <Form.Submit />
-            </Form>
-          </Card>
-          <Card title="Teste 2" padding={false}>
-            <div className="bg-gray-100 w-full h-44" />
-            <div className="space-y-3 p-5">
-              <div className="bg-gray-100 w-full h-8 rounded" />
-              <div className="bg-gray-100 w-full h-8 rounded" />
-              <div className="bg-gray-100 w-full h-8 rounded" />
+          <Card title="Vistiar o seu site" padding={false}>
+            <div className="w-full flex px-2 pb-2 justify-between items-center">
+              {route ? (
+                <>
+                  <span>Aqui você pode visitar o seu site e ver como ele fica para as outras pessoas</span>
+                  <Link href={`/${route}`}>
+                    <button className="bg-pink-400 p-3 rounded-lg font-semibold text-white cursor-pointer">
+                      Visitar
+                    </button>
+                  </Link>
+                </>
+              ) : (
+                <>
+                  <span>Você ainda não tem um site configurado</span>
+                  <button className="bg-gray-400 p-3 rounded-lg font-semibold text-white" disabled>
+                    Visitar
+                  </button>
+                </>
+              )}
             </div>
           </Card>
         </Template.Section>
       </Template>
     </div>
   );
+}
+
+export async function asyncgetServerSideProps({ req }) {
+  const prisma = new PrismaClient();
+
+  const cookies = new Cookies(req);
+
+  const { email } = jwt.decode(cookies.get('jwt'));
+  const user = await prisma.user.findUnique({
+    where: {
+      email: email,
+    },
+  });
+
+  return {
+    props: { route: user.route },
+  };
 }

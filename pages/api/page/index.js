@@ -32,6 +32,7 @@ const updatePage = async (email, data) => {
       email: email,
     },
   });
+
   if (!userInDatabase.route) {
     await prisma.user.update({
       where: {

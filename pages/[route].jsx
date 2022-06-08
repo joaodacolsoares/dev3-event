@@ -22,8 +22,10 @@ const Page = ({ user, title, subtitle, description, email, phone }) => {
           <p>{description}</p>
         </Card>
         <Card title="Contato">
-          <span>{phone}</span>
-          <span>{email}</span>
+          <div className="flex flex-col">
+            <span>{phone}</span>
+            <span>{email}</span>
+          </div>
         </Card>
       </Template.Section>
     </Template>
