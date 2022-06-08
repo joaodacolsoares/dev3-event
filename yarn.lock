@@ -112,9 +112,9 @@
   "version" "1.0.8"
 
 "@tsndr/cloudflare-worker-jwt@^1.4.2":
-  version "1.4.2"
-  resolved "https://registry.yarnpkg.com/@tsndr/cloudflare-worker-jwt/-/cloudflare-worker-jwt-1.4.2.tgz#ad1635efa48008a1b5574438da759597915ae5ba"
-  integrity sha512-Yn4gZNPa3cTaf1CWm0pjr5KFQPZLPeHxY9OHbV2gjj4bIOiLYryeCQIjGvqaxNDy7OVImLjNZREACpVdIslyFA==
+  "integrity" "sha512-Yn4gZNPa3cTaf1CWm0pjr5KFQPZLPeHxY9OHbV2gjj4bIOiLYryeCQIjGvqaxNDy7OVImLjNZREACpVdIslyFA=="
+  "resolved" "https://registry.npmjs.org/@tsndr/cloudflare-worker-jwt/-/cloudflare-worker-jwt-1.4.2.tgz"
+  "version" "1.4.2"
 
 "@types/json5@^0.0.29":
   "integrity" "sha1-7ihweulOEdK4J7y+UnC86n8+ce4="
@@ -419,10 +419,10 @@
   "resolved" "https://registry.npmjs.org/concat-map/-/concat-map-0.0.1.tgz"
   "version" "0.0.1"
 
-cookies@^0.8.0:
-  version "0.8.0"
-  resolved "https://registry.yarnpkg.com/cookies/-/cookies-0.8.0.tgz#1293ce4b391740a8406e3c9870e828c4b54f3f90"
-  integrity sha512-8aPsApQfebXnuI+537McwYsDtjVxGm8gTIzQI3FDW6t5t/DAhERxtnbEPN/8RX+uZthoz4eCOgloXaE5cYyNow==
+"cookies@^0.8.0":
+  "integrity" "sha512-8aPsApQfebXnuI+537McwYsDtjVxGm8gTIzQI3FDW6t5t/DAhERxtnbEPN/8RX+uZthoz4eCOgloXaE5cYyNow=="
+  "resolved" "https://registry.npmjs.org/cookies/-/cookies-0.8.0.tgz"
+  "version" "0.8.0"
   dependencies:
     "depd" "~2.0.0"
     "keygrip" "~1.1.0"
