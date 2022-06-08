@@ -6,7 +6,7 @@ const prisma = new PrismaClient();
 
 const handler = async (request, response) => {
   if (!['POST', 'GET'].includes(request.method)) {
-    return response.status(METHOD_NOT_ALLOWED).json({ error: 'Only POST requests are allowed' });
+    return response.status(METHOD_NOT_ALLOWED).json({ error: 'Only GET and POST requests are allowed' });
   }
 
   const cookies = new Cookies(request, response);
